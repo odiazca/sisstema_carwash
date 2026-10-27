@@ -1,0 +1,14 @@
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2"><div><h1 class="page-title">Cuentas por cobrar</h1><p class="page-sub">Saldos pendientes de clientes, antigüedad de la deuda y abonos</p></div>
+<a href="<?= url('ordenes') ?>" class="btn btn-outline-primary"><i class="bi bi-card-checklist me-1"></i> Ver órdenes</a></div>
+<div class="row g-3 mb-3">
+<?php foreach ([['Total por cobrar', money($k['total']), 'bi-hourglass-split', 'amber', $k['ordenes'] . ' órdenes con saldo'], ['Clientes con deuda', $k['clientes'], 'bi-people', 'blue', 'Con cuenta registrada'], ['Hasta 7 días', money($k['v0']), 'bi-clock', 'green', 'Deuda reciente'], ['Más de 7 días', money($k['v7'] + $k['v30']), 'bi-exclamation-triangle', 'rose', 'Más de 30 días: ' . money($k['v30'])]] as [$l, $v, $i, $c, $s]): ?>
+  <div class="col-6 col-xl-3"><div class="cw-card stat t-<?= $c ?>"><div class="d-flex align-items-center gap-3"><div class="ico bg-<?= $c ?>"><i class="bi <?= $i ?>"></i></div><div><div class="l"><?= $l ?></div><div class="fs-4 fw-bold text-dark lh-1"><?= $v ?></div><div class="small text-muted mt-1"><?= $s ?></div></div></div></div></div>
+<?php endforeach; ?></div>
+<div class="cw-card"><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>Cliente</th><th class="text-center">Órdenes</th><th>Antigüedad</th><th class="text-end">Deuda</th><th></th></tr></thead><tbody>
+<?php foreach ($por as $x): $b = $x['dias'] > 30 ? 'danger' : ($x['dias'] > 7 ? 'warning' : 'success'); $w = crm_wa($x['telefono'] ?? '', 'Hola ' . explode(' ', $x['cliente'])[0] . ', te recordamos que tienes un saldo pendiente de ' . money($x['deuda']) . ' en ' . empresa()['nombre'] . '. ¡Gracias!'); ?>
+<tr><td><b><?= e($x['cliente']) ?></b><div class="small text-muted"><?= e($x['telefono'] ?? '') ?></div></td><td class="text-center"><?= $x['n'] ?></td>
+<td><span class="badge badge-soft-<?= $b ?>"><?= (int)$x['dias'] ?> días</span></td><td class="text-end fw-bold text-danger"><?= money($x['deuda']) ?></td>
+<td class="text-end text-nowrap"><?php if ($w): ?><a class="btn btn-sm btn-success" target="_blank" href="<?= e($w) ?>" title="Recordar por WhatsApp"><i class="bi bi-whatsapp"></i></a> <?php endif; ?>
+<?php if ($x['id'] > 0): ?><a class="btn btn-sm btn-grad" href="<?= url('cobranzas/cliente/' . $x['id']) ?>"><i class="bi bi-cash-coin me-1"></i> Estado de cuenta</a>
+<?php else: foreach ($x['ordenes'] as $o): ?><a class="btn btn-sm btn-outline-primary" href="<?= url('ordenes/ver/' . $o['id']) ?>"><?= e($o['codigo']) ?></a> <?php endforeach; endif; ?></td></tr>
+<?php endforeach; if (!$por): ?><tr><td colspan="5" class="text-center text-muted py-5"><i class="bi bi-check-circle fs-1 d-block text-success"></i>No hay saldos pendientes. ¡Todo cobrado!</td></tr><?php endif; ?></tbody></table></div></div>

@@ -1,0 +1,51 @@
+==========================================================
+  CARWASH PRO v1.7 - CREDENCIALES DEL SISTEMA
+==========================================================
+IMPORTANTE: guarda este archivo FUERA de la carpeta del sistema
+(no lo pongas en C:\laragon\www ni en public_html). Cambia las
+contrasenas antes de usar el sistema con datos reales.
+
+1) ACCESO AL SISTEMA (instalacion local con Laragon)
+----------------------------------------------------------
+URL del sistema   : http://localhost/sys_carwash/
+URL del instalador: http://localhost/sys_carwash/install.php
+Usuario           : admin
+Contrasena        : admin123
+Correo            : admin@carwash.local
+Rol               : Administrador (acceso total)
+
+Nota: al instalar solo existe el usuario admin. Los roles
+Cajero y Supervisor vienen creados, pero sus usuarios los creas
+en: Sistema > Usuarios y roles.
+
+2) BASE DE DATOS (Laragon local)
+----------------------------------------------------------
+Servidor : localhost
+Puerto   : 3306
+Usuario  : root
+Clave    : (vacia)
+Base     : sys_carwash   (la crea install.php)
+Archivo de configuracion: app/config/config.php
+
+3) HOSTING (completar al publicar; guardar en lugar seguro)
+----------------------------------------------------------
+Dominio / URL     : https://______________________
+Panel (hPanel)    : usuario ____________  clave ____________
+Servidor BD (host): localhost (o el que indique el panel)
+Nombre de la BD   : ______________________  (con prefijo)
+Usuario de la BD  : ______________________
+Clave de la BD    : ______________________
+Admin del sistema : admin / (nueva contrasena: ____________)
+APP_DEBUG         : false en produccion
+
+4) ASISTENTE IA (opcional)
+----------------------------------------------------------
+Menu Inteligencia > Asistente IA > Configurar IA.
+Pega ahi tu clave de API (ej. Google AI Studio). Se guarda cifrada.
+Clave de API: ______________________
+
+5) RECOMENDACIONES
+----------------------------------------------------------
+- Cambia la contrasena de admin en el primer ingreso.
+- En hosting: elimina install.php despues de instalar y activa HTTPS.
+- Descarga copias de seguridad (.sql) con frecuencia y guardalas fuera del servidor.

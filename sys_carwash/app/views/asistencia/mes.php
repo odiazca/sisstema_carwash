@@ -1,0 +1,7 @@
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <div><a href="<?= url('asistencia') ?>" class="small text-decoration-none"><i class="bi bi-arrow-left"></i> Asistencia</a><h1 class="page-title mt-1">Resumen mensual</h1></div>
+  <form method="get" class="d-flex gap-2"><input type="month" name="mes" value="<?= e($mes) ?>" class="form-control form-control-sm" onchange="this.form.submit()"></form></div>
+<div class="cw-card"><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>Empleado</th><th class="text-center">Asistió</th><th class="text-center">Tardanzas</th><th class="text-center">Min. tarde</th><th class="text-center">Faltas</th><th class="text-center">Permisos</th><th class="text-center">Descansos</th><th class="text-end">Horas</th></tr></thead><tbody>
+<?php foreach ($rows as $r): ?><tr><td><b><?= e($r['nombre']) ?></b><div class="small text-muted"><?= e($r['cargo']) ?></div></td><td class="text-center"><span class="badge badge-soft-success"><?= (int)$r['asistio'] ?></span></td>
+<td class="text-center"><?= (int)$r['tardanzas'] ?: '-' ?></td><td class="text-center"><?= (int)$r['min_tarde'] ?: '-' ?></td><td class="text-center"><?= $r['faltas'] ? '<span class="badge badge-soft-danger">' . (int)$r['faltas'] . '</span>' : '-' ?></td>
+<td class="text-center"><?= (int)$r['permisos'] ?: '-' ?></td><td class="text-center"><?= (int)$r['descansos'] ?: '-' ?></td><td class="text-end"><?= round($r['horas'], 1) ?> h</td></tr><?php endforeach; ?></tbody></table></div></div>
